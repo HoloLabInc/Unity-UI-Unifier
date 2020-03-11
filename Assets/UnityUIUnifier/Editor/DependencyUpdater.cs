@@ -27,7 +27,8 @@ namespace UnityUIUnifier
         static readonly string uiBindingsAsmdefName = "UnityUIUnifier";
 
         static readonly List<Dependency> dependencies = new List<Dependency>() {
-            new Dependency("Unity.TextMeshPro", "UUU_TEXTMESHPRO_PRESENT")
+            new Dependency("Unity.TextMeshPro", "UUU_TEXTMESHPRO_PRESENT"),
+            new Dependency("Microsoft.MixedReality.Toolkit.SDK", "UUU_MRTK_PRESENT")
         };
 
         static DependencyChecker()
