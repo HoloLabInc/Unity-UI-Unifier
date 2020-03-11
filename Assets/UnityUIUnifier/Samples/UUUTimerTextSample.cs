@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace UnityUIUnifier.Samples
 {
-    public class TimerText : MonoBehaviour
+    public class UUUTimerTextSample : MonoBehaviour
     {
         [SerializeField]
         UnifiedText text = null;
