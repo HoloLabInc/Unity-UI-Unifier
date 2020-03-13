@@ -5,8 +5,7 @@ Unity UI Unifier (UUU) is a Unity library that unifiedly handles UI components (
 ### Attach UnifiedText components
 Attach a UnifiedText component to each Text component.
 
-![Attach UnifiedText](https://user-images.githubusercontent.com/4415085/76599500-857f8900-6548-11ea-88b8-afe23a38c29e.png)
-
+![Attach UnifiedText](https://user-images.githubusercontent.com/4415085/76600119-a694a980-6549-11ea-93a2-7190e11af4e4.png)
 
 ### Reference Text components
 When referencing text components, use UnifiedText instead of concrete classes (e.g. Text and TextMesh).
