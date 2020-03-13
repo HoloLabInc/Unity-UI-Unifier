@@ -803,6 +803,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a75ed87178557c42a8e843b5a5a26c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onClickUnityEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1895590195
 GameObject:
   m_ObjectHideFlags: 0

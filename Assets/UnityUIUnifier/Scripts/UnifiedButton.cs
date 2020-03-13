@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 #if UUU_MRTK_PRESENT
 using Microsoft.MixedReality.Toolkit.UI;
@@ -8,7 +9,7 @@ using Microsoft.MixedReality.Toolkit.UI;
 
 namespace UnityUIUnifier
 {
-    public class UnifiedButton : UnifiedText
+    public class UnifiedButton : UnifiedUIComponent
     {
         enum ButtonComponentType
         {
@@ -22,8 +23,26 @@ namespace UnityUIUnifier
         Button unityButton;
 
 #if UUU_MRTK_PRESENT
-        Interactable interactable;
+        Interactable mrtkInteractable;
 #endif
+
+        /// <summary>
+        /// Whether the user can interact with the buttton
+        /// </summary>
+        public bool Interactable
+        {
+            set
+            {
+                SetInteractable(value);
+            }
+            get
+            {
+                return GetInteractable();
+            }
+        }
+
+        [SerializeField]
+        private UnityEvent onClickUnityEvent = new UnityEvent();
 
         public event Action OnClick;
 
@@ -39,7 +58,7 @@ namespace UnityUIUnifier
                     break;
 #if UUU_MRTK_PRESENT
                 case ButtonComponentType.MrtkInteractable:
-                    interactable.TriggerOnClick();
+                    mrtkInteractable.TriggerOnClick();
                     break;
 #endif
             }
@@ -54,26 +73,77 @@ namespace UnityUIUnifier
                 componentType = ButtonComponentType.UnityButton;
                 unityButton.onClick.AddListener(() =>
                 {
-                    OnClick?.Invoke();
+                    InvokeOnClickEvent();
                 });
                 return;
             }
 
             // Microsoft.MixedReality.Toolkit.UI.Interactable;
 #if UUU_MRTK_PRESENT
-            interactable = GetComponent<Interactable>();
-            if (interactable != null)
+            mrtkInteractable = GetComponent<Interactable>();
+            if (mrtkInteractable != null)
             {
                 componentType = ButtonComponentType.MrtkInteractable;
-                interactable.OnClick.AddListener(() =>
+                mrtkInteractable.OnClick.AddListener(() =>
                 {
-                    OnClick?.Invoke();
+                    InvokeOnClickEvent();
                 });
                 return;
             }
 #endif
             // Not Found
             Debug.LogError("Text component not found");
+        }
+
+        private void InvokeOnClickEvent()
+        {
+            OnClick?.Invoke();
+            onClickUnityEvent.Invoke();
+        }
+
+
+        private void SetInteractable(bool interactable)
+        {
+            if (!initialized)
+            {
+                Initialize();
+            }
+
+            switch (componentType)
+            {
+                case ButtonComponentType.UnityButton:
+                    unityButton.interactable = interactable;
+                    return;
+#if UUU_MRTK_PRESENT
+                case ButtonComponentType.MrtkInteractable:
+                    mrtkInteractable.IsEnabled = interactable;
+                    return;
+#endif
+                case ButtonComponentType.None:
+                default:
+                    return;
+            }
+        }
+
+        private bool GetInteractable()
+        {
+            if (!initialized)
+            {
+                Initialize();
+            }
+
+            switch (componentType)
+            {
+                case ButtonComponentType.UnityButton:
+                    return unityButton.interactable;
+#if UUU_MRTK_PRESENT
+                case ButtonComponentType.MrtkInteractable:
+                    return mrtkInteractable.IsEnabled;
+#endif
+                case ButtonComponentType.None:
+                default:
+                    return false;
+            }
         }
     }
 }
