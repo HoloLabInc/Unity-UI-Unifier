@@ -60,5 +60,19 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
-
-
+/Assets/MixedRealityToolkit.Extensions.meta
+/Assets/MixedRealityToolkit.Extensions/
+/Assets/MixedRealityToolkit.Generated.meta
+/Assets/MixedRealityToolkit.Generated/
+/Assets/MixedRealityToolkit.Providers.meta
+/Assets/MixedRealityToolkit.Providers/
+/Assets/MixedRealityToolkit.SDK.meta
+/Assets/MixedRealityToolkit.SDK/
+/Assets/MixedRealityToolkit.Services.meta
+/Assets/MixedRealityToolkit.Services/
+/Assets/MixedRealityToolkit.Tools.meta
+/Assets/MixedRealityToolkit.Tools/
+/Assets/MixedRealityToolkit.meta
+/Assets/MixedRealityToolkit/
+/Assets/TextMesh Pro.meta
+/Assets/TextMesh Pro/
