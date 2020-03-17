@@ -38,6 +38,19 @@ namespace UnityUIUnifier
             }
         }
 
+        public int FontSize
+        {
+            set
+            {
+                SetFontSize(value);
+            }
+            get
+            {
+                return GetFontSize();
+            }
+        }
+
+        #region Text method
         private void SetText(string text)
         {
             if (!initialized)
@@ -86,6 +99,58 @@ namespace UnityUIUnifier
                     return null;
             }
         }
+        #endregion
+
+        #region FontSize method
+        private void SetFontSize(int fontSize)
+        {
+            if (!initialized)
+            {
+                Initialize();
+            }
+
+            switch (componentType)
+            {
+                case TextComponentType.UnityText:
+                    unityText.fontSize = fontSize;
+                    return;
+                case TextComponentType.TextMesh:
+                    textMesh.fontSize = fontSize;
+                    return;
+#if UUU_TEXTMESHPRO_PRESENT
+                case TextComponentType.TMProText:
+                    tmpText.fontSize = fontSize;
+                    return;
+#endif
+                case TextComponentType.None:
+                default:
+                    return;
+            }
+        }
+
+        private int GetFontSize()
+        {
+            if (!initialized)
+            {
+                Initialize();
+            }
+
+            switch (componentType)
+            {
+                case TextComponentType.UnityText:
+                    return unityText.fontSize;
+                case TextComponentType.TextMesh:
+                    return textMesh.fontSize;
+#if UUU_TEXTMESHPRO_PRESENT
+                case TextComponentType.TMProText:
+                    return (int)tmpText.fontSize;
+#endif
+                case TextComponentType.None:
+                default:
+                    return 0;
+            }
+        }
+        #endregion
 
         protected override void GetUIComponent()
         {
